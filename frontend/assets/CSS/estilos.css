@@ -1,0 +1,114 @@
+/* Utilizo la regla 62.5% para que al utilizar 1rem en el CSS pase de ser 16px a ser 10px, esto facilita los cambios de tamaño de la fuente */
+html{
+    font-size: 62.5%; /* 1rem = 10px */
+}
+
+/* 1. RESET Y CONFIGURACIÓN GENERAL */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Fundamental: hace que el padding no aumente el tamaño real del elemento */
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #f4f4f4;
+    color: #333;
+    line-height: 1.6rem; /* Mejora la lectura al separar un poco las líneas de texto */
+}
+
+/* 2. CABECERA (LOGO + NAVEGACIÓN) */
+header {
+    background-color: #1a1a1a;
+    padding: 1rem 5%;
+    display: flex;             /* Activamos Flexbox */
+    justify-content: space-between; /* Logo a la izquierda, Nav a la derecha */
+    align-items: center;       /* Centrados verticalmente */
+    color: white;
+}
+
+.logo {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #ff6f00;
+}
+
+/* Menú de navegación */
+nav ul {
+    list-style: none; /* Quitamos los puntos de la lista */
+    display: flex;    /* Ponemos los <li> uno al lado del otro */
+    gap: 2rem;        /* Espacio fijo entre botones */
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.6rem;
+    transition: 0.3s; /* Hace que el cambio de color sea suave, no de golpe */
+}
+
+nav a:hover {
+    color: #ff6f00; /* Color que cambia al pasar el ratón */
+}
+
+/* 3. SECCIÓN HERO (BANNER PRINCIPAL) */
+.hero {
+    background-color: #222;
+    color: #fff;
+    text-align: center;
+    padding: 10rem 2rem;
+}
+
+.btn-principal {
+    display: inline-block;
+    background-color: #ff6f00;
+    color: white;
+    padding: 1.2rem 2.5rem;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 2rem;
+    font-weight: bold;
+}
+
+/* 4. CONTENEDOR DE PRODUCTOS (GRID) */
+.productos-seccion {
+    padding: 5rem 5%;
+    text-align: center;
+}
+
+.contenedor-grid {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap; /* Si no caben en una fila, saltan a la siguiente */
+    gap: 3rem;
+    margin-top: 3rem;
+}
+
+/* Tarjeta individual de producto */
+.tarjeta-producto {
+    background: white;
+    width: 25rem;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Sombra suave para dar profundidad */
+    transition: 0.3s;
+}
+
+.tarjeta-producto:hover {
+    transform: translateY(-10px); /* El producto "flota" un poco al pasar el ratón */
+}
+
+.tarjeta-producto img {
+    width: 100%; /* La imagen siempre ocupa el ancho de la tarjeta */
+    height: auto;
+    border-radius: 5px;
+}
+
+/* 5. FOOTER */
+footer {
+    background-color: #1a1a1a;
+    color: #aaa;
+    text-align: center;
+    padding: 3rem;
+    margin-top: 5rem;
+}
