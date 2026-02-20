@@ -1,54 +1,70 @@
-/* Utilizo la regla 62.5% para que al utilizar 1rem en el CSS pase de ser 16px a ser 10px, esto facilita los cambios de tamaño de la fuente */
-html{
-    font-size: 62.5%; /* 1rem = 10px */
+/* Utilizo la regla 62.5% para que al utilizar 1rem en el CSS pase de ser 16px a ser 10px */
+html {
+    font-size: 62.5%; 
 }
 
 /* 1. RESET Y CONFIGURACIÓN GENERAL */
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box; /* Fundamental: hace que el padding no aumente el tamaño real del elemento */
+    box-sizing: border-box; 
     font-family: Arial, sans-serif;
+}
+
+/* --- ESTA ES LA PIEZA QUE FALTA --- */
+/* Si el container no mide el 100%, .header-flex no puede separar el logo del menú */
+.container {
+    width: 100%;
+    max-width: 1200px; /* O el ancho que desees */
+    margin: 0 auto;    /* Centra el contenido */
 }
 
 body {
     background-color: #f4f4f4;
     color: #333;
-    line-height: 1.6rem; /* Mejora la lectura al separar un poco las líneas de texto */
+    line-height: 1.6; 
 }
 
 /* 2. CABECERA (LOGO + NAVEGACIÓN) */
 header {
     background-color: #1a1a1a;
-    padding: 1rem 5%;
-    display: flex;             /* Activamos Flexbox */
-    justify-content: space-between; /* Logo a la izquierda, Nav a la derecha */
-    align-items: center;       /* Centrados verticalmente */
+    padding: 0.1rem 5%;
     color: white;
 }
 
-.logo {
+.header-flex {
+    display: flex;
+    justify-content: space-between; /* Ahora sí funcionará porque el container le da espacio */
+    align-items: center;
+}
+
+/* Corregido para que coincida con la clase del HTML */
+.logo-texto {
     font-size: 2.5rem;
     font-weight: bold;
-    color: #ff6f00;
+    color: white;
+}
+
+.logo-texto span {
+    color: #1d3cee;
 }
 
 /* Menú de navegación */
 nav ul {
-    list-style: none; /* Quitamos los puntos de la lista */
-    display: flex;    /* Ponemos los <li> uno al lado del otro */
-    gap: 2rem;        /* Espacio fijo entre botones */
+    list-style: none;
+    display: flex;
+    gap: 2rem;
 }
 
 nav a {
     color: #fff;
     text-decoration: none;
     font-size: 1.6rem;
-    transition: 0.3s; /* Hace que el cambio de color sea suave, no de golpe */
+    transition: 0.3s;
 }
 
 nav a:hover {
-    color: #ff6f00; /* Color que cambia al pasar el ratón */
+    color: #ff6f00;
 }
 
 /* 3. SECCIÓN HERO (BANNER PRINCIPAL) */
@@ -59,15 +75,28 @@ nav a:hover {
     padding: 10rem 2rem;
 }
 
-.btn-principal {
+.btn{
     display: inline-block;
-    background-color: #ff6f00;
-    color: white;
     padding: 1.2rem 2.5rem;
     text-decoration: none;
-    border-radius: 5px;
-    margin-top: 2rem;
+    border-radius: 1.5rem;
     font-weight: bold;
+    transition: 0.3s;
+    cursor: pointer;
+    text-align: center;
+}
+
+.btn-principal{
+    background-color: #0327f5;
+    color: white;
+    border:0.2rem solid white;
+    margin-top: 2rem;
+}
+
+.btn-secundario{
+    background-color: rgb(76, 76, 240);
+    color: white;
+    border: 0.2rem solid white;
 }
 
 /* 4. CONTENEDOR DE PRODUCTOS (GRID) */
@@ -79,7 +108,7 @@ nav a:hover {
 .contenedor-grid {
     display: flex;
     justify-content: center;
-    flex-wrap: wrap; /* Si no caben en una fila, saltan a la siguiente */
+    flex-wrap: wrap;
     gap: 3rem;
     margin-top: 3rem;
 }
@@ -90,16 +119,16 @@ nav a:hover {
     width: 25rem;
     padding: 2rem;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Sombra suave para dar profundidad */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     transition: 0.3s;
 }
 
 .tarjeta-producto:hover {
-    transform: translateY(-10px); /* El producto "flota" un poco al pasar el ratón */
+    transform: translateY(-10px);
 }
 
 .tarjeta-producto img {
-    width: 100%; /* La imagen siempre ocupa el ancho de la tarjeta */
+    width: 100%;
     height: auto;
     border-radius: 5px;
 }

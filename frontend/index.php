@@ -17,9 +17,9 @@
             
             <nav>
                 <ul>
-                    <li><a href="#servicios">Servicios</a></li>
-                    <li><a href="#diferencial">Ventajas</a></li>
-                    <li><a href="#contacto">Contacto</a></li>
+                    <li><a href="#servicios" class="btn btn-secundario">Servicios</a></li>
+                    <li><a href="#diferencial" class="btn btn-secundario">Ventajas</a></li>
+                    <li><a href="#contacto" class="btn btn-secundario">Contacto</a></li>
                 </ul>
             </nav>
         </div>
@@ -28,8 +28,8 @@
     <main>
         <section class="hero">
             <div class="container">
-                <h2>PCs a medida, <span>como tú los imaginas</span></h2>
-                <p>Diseña y personaliza tu PC gaming o de oficina con nuestro configurador visual en tiempo real.</p>
+                <h1>PCs a medida, <span>como tú los imaginas</span></h1>
+                <h3>Diseña y personaliza tu PC gaming o de oficina con nuestro configurador visual en tiempo real.</h3>
                 <a href="#configurador" class="btn btn-principal">Crear mi PC</a>
             </div>
         </section>
