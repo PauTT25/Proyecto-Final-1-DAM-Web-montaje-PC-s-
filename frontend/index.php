@@ -34,42 +34,42 @@
             </div>
         </section>
 
-        <section id="servicios" class="seccion-padding">
-            <div class="container">
-                <h3 class="titulo-seccion">Nuestros Servicios</h3>
-                <div class="grid-servicios">
-                    <article class="tarjeta">
-                        <h4>PC Gaming</h4>
-                        <p>Equipos optimizados para alto rendimiento y estética gaming. Visualiza tu torre antes de comprar.</p>
-                    </article>
+       <section id="servicios" class="seccion-padding">
+    <div class="container">
+        <h3 class="titulo-seccion">Nuestros Servicios</h3>
+        <div class="grid-servicios">
+            <article class="tarjeta">
+                <h4>PC Gaming</h4>
+                <p>Equipos optimizados para alto rendimiento y estética gaming.</p>
+            </article>
 
-                    <article class="tarjeta">
-                        <h4>PC Oficina</h4>
-                        <p>Soluciones fiables y silenciosas para el trabajo diario, adaptadas a cualquier presupuesto.</p>
-                    </article>
-                </div>
-            </div>
-        </section>
+            <article class="tarjeta">
+                <h4>PC Oficina</h4>
+                <p>Soluciones fiables y silenciosas para el trabajo diario.</p>
+            </article>
+        </div>
+    </div>
+</section>
 
-        <section id="diferencial" class="seccion-oscura">
-            <div class="container">
-                <h3 class="titulo-seccion">¿Por qué PCBuilder?</h3>
-                <div class="grid-valores">
-                    <div class="valor-item">
-                        <h5>Configuración Visual</h5>
-                        <p>Ves el PC antes de comprarlo. Sin sorpresas.</p>
-                    </div>
-                    <div class="valor-item">
-                        <h5>Compatibilidad</h5>
-                        <p>Filtros automáticos para piezas compatibles.</p>
-                    </div>
-                    <div class="valor-item">
-                        <h5>Venta Directa</h5>
-                        <p>Sin intermediarios, mejores precios del mercado.</p>
-                    </div>
-                </div>
+<section id="diferencial" class="seccion-oscura">
+    <div class="container">
+        <h3 class="titulo-seccion">¿Por qué PCBuilder?</h3>
+        <div class="grid-valores">
+            <div class="valor-item">
+                <h5>Configuración Visual</h5>
+                <p>Ves el PC antes de comprarlo.</p>
             </div>
-        </section>
+            <div class="valor-item">
+                <h5>Compatibilidad</h5>
+                <p>Filtros automáticos para piezas.</p>
+            </div>
+            <div class="valor-item">
+                <h5>Venta Directa</h5>
+                <p>Sin intermediarios, mejores precios.</p>
+            </div>
+        </div>
+    </div>
+</section>
 
         <section class="cta">
             <div class="container">

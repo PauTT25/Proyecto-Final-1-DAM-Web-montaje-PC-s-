@@ -75,6 +75,7 @@ nav a:hover {
     padding: 10rem 2rem;
 }
 
+/* Boton general */
 .btn{
     display: inline-block;
     padding: 1.2rem 2.5rem;
@@ -100,42 +101,84 @@ nav a:hover {
 }
 
 /* 4. CONTENEDOR DE PRODUCTOS (GRID) */
-.productos-seccion {
-    padding: 5rem 5%;
-    text-align: center;
+
+/* Espacio general para las tarjetas de contenido */
+.seccion-padding {
+    padding: 6rem 5%; /* 60px arriba y abajo, 5% a los lados */
 }
 
-.contenedor-grid {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
+/* Variacion en la seccion con fondo oscuro */
+.seccion-oscura {
+    background-color: #1a1a1a;
+    color: rgb(76, 76, 240);
+    padding: 6rem 5%;
+}
+
+/* Utilizamos flex para poner los elementos en horizontal */
+.grid-servicios,
+.grid-valores,
+.contenedor-grid{
+    display: flex;               /* Utilizamos flex para que las tarjetas se distribuyan en fila */
+    justify-content: center;     /* Alineamos al centro para que se vea una distribucion mas fluida */   
     gap: 3rem;
-    margin-top: 3rem;
+    flex-wrap: wrap;             /* WRAP nos permite que las tarjetas se ajusten dependiendo de la pantalla */
 }
 
-/* Tarjeta individual de producto */
+
+
+/*Tarjeta general para los productos y sus valores*/
+.tarjeta,
+.valor-item,
 .tarjeta-producto {
-    background: white;
-    width: 25rem;
-    padding: 2rem;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    transition: 0.3s;
+    flex: 1;
+    min-width: 28rem;       /* Evitamos que las tarjetas se estrechen */
+    max-width: 40rem;       /* Evitamos que se deformen las tarjetas cuando se haga zoom */
+    background: rgba(255, 255, 255, 0.938);
+    padding: 3rem;
+    border-radius: 1rem;
+    box-shadow:0 4px 15px rgba(0,0,0,0.1); /*Sombra para dar profundidad*/
+    text-align: center;
+    color: #333;
+    transition: 0.3s ease;  /*Pequeña transicion para el efecto del hover*/
 }
 
+/* Cuando pasamos el raton por encima hace efecto de elevacion*/
+.tarjeta:hover, 
+.valor-item:hover,
 .tarjeta-producto:hover {
     transform: translateY(-10px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
 }
 
+/* Para que las tarjetas se puedan ver bien*/
+.seccion-oscura .valor-item {
+    background-color: #252525;
+    color: #fff;
+    border: 1rem solid #333;
+    border-radius: 1rem;
+    padding: 1rem;
+}
+
+/* Titulos para las tarjetas de los productos */
+.tarjeta h4,
+.valor-item h5,
+.tarjeta-producto h4{
+    font-size: 2.2rem;
+    margin-bottom: 1.5rem;
+    color:rgb(76, 76, 240)
+}
+
+/* Imágenes para cuando meta los productos*/
 .tarjeta-producto img {
     width: 100%;
     height: auto;
-    border-radius: 5px;
+    border-radius: 0.5rem;
+    margin-bottom: 1.5rem;
 }
 
 /* 5. FOOTER */
 footer {
-    background-color: #1a1a1a;
+    background-color: #333;
     color: #aaa;
     text-align: center;
     padding: 3rem;
