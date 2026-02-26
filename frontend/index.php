@@ -1,11 +1,14 @@
-<?php include 'includes/header.php'; ?>
+<?php 
+// Utilizo el include para reutilizar el código del header y footer en todas las páginas.
+include 'includes/header.php'; 
+?>
 
     <main>
         <section class="hero">
             <div class="container">
                 <h1>PCs a medida, <span>como tú los imaginas</span></h1>
                 <h3>Diseña y personaliza tu PC gaming o de oficina con nuestro configurador visual en tiempo real.</h3>
-                <a href="#configurador" class="btn btn-principal btn-hero-animate">Crear mi PC</a>
+                <a href="configurador.php" class="btn btn-principal btn-hero-animate">Crear mi PC</a>
             </div>
         </section>
 
@@ -49,7 +52,7 @@
     <div class="container cta-contenido">
         <h2 class="titulo-cta">¿Listo para empezar?</h2>
         <p class="subtitulo-cta">Montado por profesionales con garantía total.</p>
-        <a href="#configurador" class="btn btn-principal btn-hero-animate">Ir al configurador</a>
+        <a href="configurador.php" class="btn btn-principal btn-hero-animate">Ir al configurador</a>
     </div>
         </section>
     </main>

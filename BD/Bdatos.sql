@@ -30,19 +30,17 @@ INSERT INTO categorias (nombre_categoria) VALUES ('PC Oficina');
 /* Inserto los productos */
 /* ID 1 = PC Gaming | ID 2 = PC Oficina */
 
--- PRODUCTOS PARA PC GAMING ID 1 */  /*Para ver los productos de una categoria en concreto, SELECT * FROM productos WHERE id_categoria = 1; */
+-- PRODUCTOS PARA PC GAMING ID 1  /* Para ver los productos de una categoria en concreto, SELECT * FROM productos WHERE id_categoria = 1; */
+-- Insertamos Procesadores (id_categoria = 1)
 INSERT INTO productos (nombre, marca, precio, imagen_url, stock, id_categoria) VALUES 
-('Starter Gaming R5', 'AMD', 750.00, 'pc-gaming-starter.jpg', 15, 1),
-('Pro Gamer RTX 4070', 'MSI', 1450.99, 'pc-gaming-pro.jpg', 8, 1),
-('Ultra Enthusiast Liquid', 'ASUS ROG', 2890.00, 'pc-gaming-ultra.jpg', 3, 1),
-('NVIDIA GeForce RTX 4080', 'Gigabyte', 1199.00, 'gpu-rtx4080.jpg', 5, 1);
+('AMD Ryzen 5 5600X', 'AMD', 155.00, 'cpu-r5.jpg', 20, 1),
+('Intel Core i7-12700K', 'Intel', 320.00, 'cpu-i7.jpg', 15, 1);
 
--- PRODUCTOS PARA PC OFICINA ID 2 */
+-- PRODUCTOS PARA PC OFICINA ID 2 
+-- Insertamos Memorias RAM (id_categoria = 2)
 INSERT INTO productos (nombre, marca, precio, imagen_url, stock, id_categoria) VALUES 
-('Workstation Office i5', 'Intel', 520.00, 'pc-oficina-basic.jpg', 20, 2),
-('Laptop Business Slim', 'Lenovo', 740.50, 'laptop-office.jpg', 12, 2),
-('Mini PC Compact Pro', 'HP', 450.00, 'mini-pc.jpg', 10, 2),
-('Monitor 24" Eye Care', 'BenQ', 145.00, 'monitor-office.jpg', 25, 2);
+('Corsair Vengeance 16GB (2x8)', 'Corsair', 75.00, 'ram-16gb.jpg', 30, 2),
+('G.Skill Trident Z 32GB', 'G.Skill', 120.00, 'ram-32gb.jpg', 10, 2);
 
 -- Creamos el usuario con su contraseña y asignamos los permisos necesarios.
 CREATE USER 'U_PCBuilder'@'localhost' 
@@ -57,6 +55,6 @@ MAX_CONNECTIONS_PER_HOUR 0
 MAX_UPDATES_PER_HOUR 0 
 MAX_USER_CONNECTIONS 0;
 
-GRANT ALL PRIVILEGES ON pcbuilder_db.* TO 'U_PCBuilder'@'localhost';
+GRANT ALL PRIVILEGES ON PCBuilder.* TO 'U_PCBuilder'@'localhost';
 
 FLUSH PRIVILEGES;
