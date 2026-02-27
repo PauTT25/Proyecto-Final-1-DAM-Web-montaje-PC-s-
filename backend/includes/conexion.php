@@ -2,7 +2,7 @@
 
     $host = "localhost";      // Servidor de la base de datos.
     $user = "U_PCBuilder";    // Usuario con privilegios limitados.
-    $pass = "PCBuilder2026$"; // Contraseña segura asignada al usuario.
+    $pass = 'PCBuilder2026$'; // Contraseña segura asignada al usuario.
     $db   = "PCBuilder";   // Nombre de la base de datos.
 
     // Creamos la instancia de la clase mysqli para establecer la conexion

@@ -1,5 +1,5 @@
 <?php 
-    // Hago la conexion a la base de datos 
+    // Hago la conexion a la base de datos u utilizando __DIR__ me aseguro de tener la variable $conexion en todas las paginas que utilize el header.
     include __DIR__ . '/../../backend/includes/conexion.php';
 ?>
 

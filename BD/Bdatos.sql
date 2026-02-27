@@ -12,7 +12,7 @@ CREATE TABLE categorias (
     id_categoria INT AUTO_INCREMENT PRIMARY KEY,
     nombre_categoria VARCHAR(50) NOT NULL);
 
---Creo la tabla de productos la cual guardara los productos que se muestran en las tarjetas.
+--Creo la tabla de productos la cual guardara los productos que se muestran en las tarjetas, utilizando la FK id_categoria se puede relacionar cada producto con su categoria correspondiente.
 CREATE TABLE productos (
     id_producto INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL,
@@ -22,13 +22,15 @@ CREATE TABLE productos (
     stock INT DEFAULT 0,               /* Para poder mantener un control de inventario */
     id_categoria INT,
     FOREIGN KEY (id_categoria) REFERENCES categorias(id_categoria) ON DELETE SET NULL);
-
+    
 /* Inserto las categorias */
 INSERT INTO categorias (nombre_categoria) VALUES ('PC Gaming');
 INSERT INTO categorias (nombre_categoria) VALUES ('PC Oficina');
 
+
 /* Inserto los productos */
 /* ID 1 = PC Gaming | ID 2 = PC Oficina */
+
 
 -- PRODUCTOS PARA PC GAMING ID 1  /* Para ver los productos de una categoria en concreto, SELECT * FROM productos WHERE id_categoria = 1; */
 -- Insertamos Procesadores (id_categoria = 1)
@@ -58,3 +60,18 @@ MAX_USER_CONNECTIONS 0;
 GRANT ALL PRIVILEGES ON PCBuilder.* TO 'U_PCBuilder'@'localhost';
 
 FLUSH PRIVILEGES;
+
+-- Cambios.
+ALTER TABLE productos ADD COLUMN tipo_componente VARCHAR(50);
+
+-- Actualizo el tipo de componente para cada producto para que se puedan identificar mejor.
+UPDATE productos SET tipo_componente = 'procesador' WHERE nombre LIKE '%Ryzen%' OR nombre LIKE '%Intel%';
+UPDATE productos SET tipo_componente = 'ram' WHERE nombre LIKE '%Corsair%' OR nombre LIKE '%G.Skill%';
+
+-- Cambio las RAM a la categoria de PC Gaming siendo la categoria 1.
+UPDATE productos SET id_categoria = 1 WHERE tipo_componente = 'ram';
+
+-- Componentes para PC oficina.
+INSERT INTO productos (nombre, marca, precio, imagen_url, stock, id_categoria, tipo_componente) VALUES 
+('Intel i3-12100', 'Intel', 110.00, 'cpu-i3.jpg', 10, 2, 'procesador'),
+('Kingston Value 8GB', 'Kingston', 35.00, 'ram-oficina.jpg', 20, 2, 'ram');

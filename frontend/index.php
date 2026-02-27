@@ -8,7 +8,7 @@ include 'includes/header.php';
             <div class="container">
                 <h1>PCs a medida, <span>como tú los imaginas</span></h1>
                 <h3>Diseña y personaliza tu PC gaming o de oficina con nuestro configurador visual en tiempo real.</h3>
-                <a href="configurador.php" class="btn btn-principal btn-hero-animate">Crear mi PC</a>
+                <a href="#servicios" class="btn btn-principal btn-hero-animate">Crear mi PC</a>
             </div>
         </section>
 
@@ -16,14 +16,22 @@ include 'includes/header.php';
             <div class="container">
                 <h3 class="titulo-seccion">Nuestros Servicios</h3>
                 <div class="grid-servicios">
-                    <article class="tarjeta">
-                        <h4>PC Gaming</h4>
-                        <p>Equipos optimizados para alto rendimiento y estética gaming.</p>
-                    </article>
-                    <article class="tarjeta">
-                        <h4>PC Oficina</h4>
-                        <p>Soluciones fiables y silenciosas para el trabajo diario.</p>
-                    </article>
+                    <a href="configurador.php?id_cat=1" style="text-decoration: none; color: inherit;">
+                        <article class="tarjeta">
+                            <img src="assets/images/gaming-icon.png" alt="Gaming" style="width: 60px; margin-bottom: 15px;">
+                            <h4>PC Gaming</h4>
+                            <p>Equipos optimizados para alto rendimiento y estética gaming.</p>
+                        </article>
+                    </a>
+
+                    <a href="configurador.php?id_cat=2" style="text-decoration: none; color: inherit;">
+                        <article class="tarjeta">
+                            <img src="assets/images/oficina-icon.png" alt="Oficina" style="width: 60px; margin-bottom: 15px;">
+                            <h4>PC Oficina</h4>
+                            <p>Soluciones fiables y silenciosas para el trabajo diario.</p>
+                        </article>
+                    </a>
+
                 </div>
             </div>
         </section>
@@ -49,11 +57,11 @@ include 'includes/header.php';
         </section>
 
         <section class="cta-final">
-    <div class="container cta-contenido">
-        <h2 class="titulo-cta">¿Listo para empezar?</h2>
-        <p class="subtitulo-cta">Montado por profesionales con garantía total.</p>
-        <a href="configurador.php" class="btn btn-principal btn-hero-animate">Ir al configurador</a>
-    </div>
+            <div class="container cta-contenido">
+                <h2 class="titulo-cta">¿Listo para empezar?</h2>
+                <p class="subtitulo-cta">Montado por profesionales con garantía total.</p>
+                <a href="#servicios" class="btn btn-principal btn-hero-animate">Ir al configurador</a>
+            </div>
         </section>
     </main>
 
