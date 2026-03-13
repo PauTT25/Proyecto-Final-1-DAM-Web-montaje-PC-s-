@@ -295,3 +295,11 @@ footer {
     border-color: #3498db;
     box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
 }
+
+.tabla-presupuesto table td {
+    color: #333;
+}
+.tabla-presupuesto thead th {
+    color: #0327f5;
+    text-transform: uppercase;
+}
