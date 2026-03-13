@@ -1,11 +1,15 @@
-/* Utilizo la regla 62.5% para que al utilizar 1rem en el CSS pase de ser 16px a ser 10px */
+/* ==========================================================================
+   CSS DE PCBUILDER - PROYECTO FINAL DAM
+   ========================================================================== */
+
+/* 1. RESET Y VARIABLES */
+/* Regla 62.5% para convertir 1rem = 10px y facilitar cálculos de espaciado */
 html {
     font-size: 62.5%;
-    scroll-behavior: smooth; /* Desplazamiento suave al clicar enlaces */ 
-    
+    scroll-behavior: smooth; /* Desplazamiento suave para mejorar la UX */ 
 }
 
-/* 1. RESET Y CONFIGURACIÓN GENERAL */
+/* Reset básico para eliminar márgenes por defecto del navegador */
 * {
     margin: 0;
     padding: 0;
@@ -13,108 +17,86 @@ html {
     font-family: 'Segoe UI', Arial, sans-serif;
 }
 
-/* --- ESTA ES LA PIEZA QUE FALTA --- */
-/* Si el container no mide el 100%, .header-flex no puede separar el logo del menú */
-.container {
-    width: 100%;
-    max-width: 1200px; /* O el ancho que desees */
-    margin: 0 auto;    /* Centra el contenido */
-    padding: 0 2rem;
-}
-
 body {
     background-color: #f8f9fa;
     color: #333;
-    padding-top: 8rem;
+    padding-top: 8rem; /* Padding superior para compensar el header fijo */
 }
 
-/* 2. CABECERA (LOGO + NAVEGACIÓN) */
+/* 2. LAYOUT BASE */
+/* Contenedor centralizado para mantener el diseño contenido en pantallas anchas */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.seccion-padding { padding: 10rem 0; }
+
+.seccion-oscura {
+    background-color: #1a1a1a;
+    color: white;
+    padding: 10rem 0;
+}
+
+/* 3. COMPONENTES (HEADER, HERO, FOOTER) */
 header {
     background-color: #1a1a1a;
     padding: 0.8rem 2%;
     border-bottom: 3px solid #0327f5;
-    position: fixed; /* Mantiene el header anclado arriba */
+    position: fixed; /* Header siempre visible en la parte superior */
     top: 0;
     width: 100%;
-    z-index: 1000; /* Asegura que el header este siempre por encima del contenido */
+    z-index: 1000;
 }
 
 .header-flex {
     display: flex;
-    justify-content: space-between; /* Ahora sí funcionará porque el container le da espacio */
+    justify-content: space-between;
     align-items: center;
-    max-width: 100%; /* Permite que el contenido se pegue a los bordes */
+    max-width: 100%;
 }
 
-/* Logo y Titulo simetricos uno debajo de otro */
 .logo-container {
     display: flex;
     flex-direction: column;
-    align-items: flex-start; /* Alineado a la izquierda */
-    gap: 0.2rem; /* Espacio entre el logo y el titulo */
+    align-items: flex-start;
+    gap: 0.2rem;
 }
 
-.logo-img {
-    width: 10rem; /* Logo un poco mas grande */
-    height: auto;
-}
+.logo-img { width: 10rem; height: auto; }
+.logo-texto { font-size: 1.6rem; color: white; text-transform: uppercase; letter-spacing: 1px; }
+.logo-texto span { color: #0327f5; }
 
-/* Corregido para que coincida con la clase del HTML */
-.logo-texto {
-    font-size: 1.6rem;
-    color: white;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-
-.logo-texto span {
-    color: #0327f5;
-}
-
-/* Menú de navegación */
-.nav-list {
-    list-style: none;
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-}
-
+/* Navegación con diseño tipo "pill" */
+.nav-list { list-style: none; display: flex; align-items: center; gap: 1.5rem; }
 .nav-list a {
     color: #fff;
     text-decoration: none;
     font-size: 1.3rem;
     font-weight: 600;
-    padding: 0.8rem 2.5rem; /* Marcos estirados */
+    padding: 0.8rem 2.5rem;
     border: 2px solid transparent;
-    border-radius: 5rem; /* Bordes circulares */
+    border-radius: 5rem;
     transition: all 0.3s ease;
 }
 
-.nav-list a:hover {
-    color: #fff;
-    border-color: #0327f5;
-    background-color: rgba(3, 39, 245, 0.1);
-    transform: translateY(-3px); /* Efecto de elevacion al pasar el raton */
-}
-
-/* 3. SECCIÓN HERO (BANNER PRINCIPAL) */
+/* Hero con imagen de fondo y superposición oscura para contraste */
 .hero {
     background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('../images/hero-bg.jpg');
-    background-color: #222;
+    background-color: #222; /* Restaurado a tu valor original */
     background-size: cover;
     color: #fff;
     text-align: center;
     padding: 10rem 2rem;
 }
 
-/* Boton general */
 .btn{
     display: inline-block;
     text-decoration: none;
     border-radius: 0.8rem;
     font-weight: bold;
-    transition: all 0.3s ease;
     cursor: pointer;
 }
 
@@ -128,139 +110,6 @@ header {
     box-shadow: 0 4px 15px rgba(3, 39, 245, 0.3);
 }
 
-.btn-hero-animate:hover {
-    transform: scale(1.1) translateY(-5px); /* Se hace grande y se eleva */
-    background-color: #1d3cee;
-    box-shadow: 0 8px 25px rgba(3, 39, 245, 0.5);
-}
-
-/* 4. CONTENEDOR DE PRODUCTOS (GRID) */
-
-/* Espacio general para las tarjetas de contenido */
-.seccion-padding {
-    padding: 10rem 0; /* 100px arriba y abajo */
-}
-
-.titulo-seccion {
-    text-align: center;
-    font-size: 3.5rem; /* Maas grande para destacar */
-    margin-bottom: 6rem; /* Mas separacion entre las tarjetas */
-    color: #4357a7;
-    font-weight: 800;
-    text-transform: uppercase;
-    position: relative;
-}
-
-/* Variacion en la seccion con fondo oscuro */
-.seccion-oscura {
-    background-color: #1a1a1a;
-    color: white;
-    padding: 10rem 0;
-}
-
-/* Utilizamos flex para poner los elementos en horizontal */
-.grid-servicios,
-.grid-valores,
-.contenedor-grid{
-    display: flex;               /* Utilizamos flex para que las tarjetas se distribuyan en fila */
-    justify-content: center;     /* Alineamos al centro para que se vea una distribucion mas fluida */   
-    gap: 3rem;
-    flex-wrap: wrap;             /* WRAP nos permite que las tarjetas se ajusten dependiendo de la pantalla */
-}
-
-
-
-/*Tarjeta general para los productos y sus valores*/
-.tarjeta,
-.valor-item,
-.tarjeta-producto {
-    flex: 1;
-    min-width: 28rem;       /* Evitamos que las tarjetas se estrechen */
-    max-width: 40rem;       /* Evitamos que se deformen las tarjetas cuando se haga zoom */
-    background: white;
-    padding: 3.5rem;
-    border-radius: 1.2rem;
-    box-shadow:0 4px 15px rgba(0,0,0,0.1); /*Sombra para dar profundidad*/
-    text-align: center;
-    color: #333;
-    transition: 0.3s ease;  /*Pequeña transicion para el efecto del hover*/
-    border-bottom: 4px solid #0327f5; /* Linea decorativa con el color principal */
-}
-
-/* Cuando pasamos el raton por encima hace efecto de elevacion*/
-.tarjeta:hover, 
-.valor-item:hover,
-.tarjeta-producto:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 12px 25px rgba(0,0,0,0.2);
-}
-
-/* Para que las tarjetas se puedan ver bien*/
-.seccion-oscura .valor-item {
-    background-color: #252525;
-    color: #fff;
-    border: none;
-    border-bottom: 4px solid #0327f5;
-    padding: 3.5rem;
-}
-
-/* Titulos para las tarjetas de los productos */
-.tarjeta h4,
-.valor-item h5,
-.tarjeta-producto h4{
-    font-size: 2.2rem;
-    margin-bottom: 1.5rem;
-    color:#0327f5;
-}
-
-/* Imagenes para cuando meta los productos*/
-.tarjeta-producto img {
-    width: 100%;
-    height: auto;
-    border-radius: 0.5rem;
-    margin-bottom: 1.5rem;
-}
-
-/* 5. SECCION FINAL (CTA) */
-
-.cta-final {
-    background-color: #1a1a1a; /* Fondo oscuro para tener contraste */
-    padding: 10rem 1rem;       /* Mucho espacio arriba y abajo para centrar la atención */
-    text-align: center;
-    border-top: 4px solid #0327f5; /* Linea para separar del contenido anterior */
-    margin-top: 4rem;
-}
-
-.cta-contenido {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2rem;
-}
-
-.titulo-cta {
-    font-size: 2rem;         /* Tamaño mas grande*/
-    color: white;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-}
-
-.subtitulo-cta {
-    font-size: 2.2rem;
-    color: #aaa;              /* Gris para que el titulo destaque */
-    max-width: 600px;
-    margin-bottom: 2rem;
-}
-
-/* Ajuste del boton en la seccion para que sea grande */
-.cta-final .btn-principal {
-    padding: 1rem 4rem;
-    font-size: 2rem;
-    margin-top: 0;            /* Reset del margen para controlarlo desde el contenedor */
-}
-
-/* 6. FOOTER */
 footer {
     background-color: #111;
     color: #aaa;
@@ -269,37 +118,92 @@ footer {
     margin-top: 5rem;
 }
 
-.contenedor-piezas {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
-    padding: 20px 0;
-}
-
-.tarjeta-pieza {
-    width: 220px;
-    background: #fff;
-    border: 1px solid #ccc;
-    padding: 15px;
-    border-radius: 10px;
+/* 4. TARJETAS Y GRIDS */
+.titulo-seccion {
     text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #f9f9f9;
-}
-
-.tarjeta-pieza:hover {
-    border-color: #3498db;
-    box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
-}
-
-.tabla-presupuesto table td {
-    color: #333;
-}
-.tabla-presupuesto thead th {
-    color: #0327f5;
+    font-size: 3.5rem;
+    margin-bottom: 6rem;
+    color: #4357a7;
+    font-weight: 800;
     text-transform: uppercase;
 }
+
+/* Flexbox para layouts responsivos que se adaptan al ancho de pantalla */
+.grid-servicios, .grid-valores, .contenedor-grid, .contenedor-piezas {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    flex-wrap: wrap;
+    padding: 2rem 0;
+}
+
+/* Estilo base para tarjetas: profundidad y borde decorativo */
+.tarjeta, .valor-item, .tarjeta-producto, .tarjeta-pieza {
+    background: white;
+    padding: 3.5rem;
+    border-radius: 1.2rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    text-align: center;
+    color: #333;
+    border-bottom: 4px solid #0327f5;
+}
+
+.tarjeta-pieza { width: 220px; padding: 15px; background-color: #f9f9f9; border-bottom: none; border: 1px solid #ccc; }
+
+.seccion-oscura .valor-item { background-color: #252525; color: #fff; border: none; border-bottom: 4px solid #0327f5; }
+
+.tarjeta h4, .valor-item h5, .tarjeta-producto h4 { font-size: 2.2rem; margin-bottom: 1.5rem; color:#0327f5; }
+.tarjeta-producto img { width: 100%; height: auto; border-radius: 0.5rem; margin-bottom: 1.5rem; }
+
+/* 5. EFECTOS DE INTERACCIÓN (HOVERS) */
+/* Centralizamos transiciones para mantener el código DRY (Don't Repeat Yourself) */
+.btn-principal, .btn-hero-animate, .tarjeta, .valor-item, .tarjeta-producto, .tarjeta-pieza { 
+    transition: all 0.3s ease; 
+}
+
+/* Efecto para botones principales (incluye el botón de contacto/ventajas) */
+.btn-principal:hover {
+    /* Aquí se mantiene la elevación original sin cambios */
+    transform: translateY(-5px); 
+    background-color: #1d3cee;
+    box-shadow: 0 8px 25px rgba(3, 39, 245, 0.5);
+}
+
+/* Efecto especial para el Hero (el que se hace más grande) */
+.btn-hero-animate:hover {
+    transform: scale(1.1) translateY(-5px);
+    background-color: #1d3cee;
+    box-shadow: 0 8px 25px rgba(3, 39, 245, 0.5);
+}
+
+.tarjeta:hover, .valor-item:hover, .tarjeta-producto:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.2);
+}
+
+.tarjeta-pieza:hover { border-color: #3498db; box-shadow: 0px 4px 10px rgba(0,0,0,0.1); }
+
+.nav-list a:hover {
+    color: #fff;
+    border-color: #0327f5;
+    background-color: rgba(3, 39, 245, 0.1);
+    transform: translateY(-3px); /* Desplazamiento original del menú */
+}
+
+/* Corrección de centrado para secciones específicas (Contacto/Configurador) */
+.cta-final, .cta-contenido {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Esto centra horizontalmente */
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+}
+
+/* Asegurar tipografía correcta */
+.titulo-cta, .subtitulo-cta {
+    text-align: center;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    font-size: 2rem; /* Forzamos la fuente original */
+}
+
