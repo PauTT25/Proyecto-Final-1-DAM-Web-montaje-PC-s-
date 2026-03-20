@@ -65,11 +65,9 @@
 <body>
 
 <?php
-// Incluimos la conexion a la base de datos
 include "conexion.php";
 
 // Comprobamos si nos llega un ID por la URL para saber si estamos editando o creando
-// Si no llega ID, lo ponemos a 0 (modo nuevo)
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
 // Variable para guardar los datos del producto si estamos editando
@@ -96,33 +94,39 @@ if (isset($_POST['guardar'])) {
     $id_categoria    = $_POST['id_categoria'];
     $imagen_url      = $_POST['imagen_url'];
 
-    // Validacion basica: comprobamos que los campos obligatorios no esten vacios
+    // Validaciones encadenadas con elseif para que solo muestre un error a la vez
     if (empty($nombre) || empty($marca) || empty($precio) || empty($tipo_componente) || empty($id_categoria)) {
         $mensaje = "Por favor, rellena todos los campos obligatorios.";
+
+    } elseif ($precio <= 0) {
+        // El precio tiene que ser mayor que 0
+        $mensaje = "El precio debe ser mayor que 0.";
+
+    } elseif ($stock < 0) {
+        // El stock no puede ser un numero negativo
+        $mensaje = "El stock no puede ser negativo.";
 
     } else {
         // Todo correcto, decidimos si hacer INSERT o UPDATE segun el modo
         if ($id == 0) {
-            // Modo nuevo: insertamos el producto en la base de datos
             $sql = "INSERT INTO productos (nombre, marca, precio, stock, tipo_componente, id_categoria, imagen_url)
                     VALUES ('$nombre', '$marca', '$precio', '$stock', '$tipo_componente', '$id_categoria', '$imagen_url')";
 
             if ($conexion->query($sql)) {
-                header("Location: ../index_admin.php?msg=creado");
+                header("Location: ../index.php?msg=creado");
                 exit;
             } else {
                 $mensaje = "Error al guardar: " . $conexion->error;
             }
 
         } else {
-            // Modo edicion: actualizamos el producto existente
             $sql = "UPDATE productos
                     SET nombre='$nombre', marca='$marca', precio='$precio', stock='$stock',
                         tipo_componente='$tipo_componente', id_categoria='$id_categoria', imagen_url='$imagen_url'
                     WHERE id_producto = $id";
 
             if ($conexion->query($sql)) {
-                header("Location: ../index_admin.php?msg=actualizado");
+                header("Location: ../index.php?msg=actualizado");
                 exit;
             } else {
                 $mensaje = "Error al actualizar: " . $conexion->error;
@@ -131,11 +135,9 @@ if (isset($_POST['guardar'])) {
     }
 }
 
-// Traemos las categorias para el desplegable del formulario
 $categorias = $conexion->query("SELECT * FROM categorias");
 ?>
 
-<!-- HEADER -->
 <header>
     <div class="header-flex container">
         <div class="logo-container">
@@ -143,7 +145,7 @@ $categorias = $conexion->query("SELECT * FROM categorias");
         </div>
         <nav>
             <ul class="nav-list">
-                <li><a href="../index_admin.php">← Volver al Panel</a></li>
+                <li><a href="../index.php">← Volver al Panel</a></li>
             </ul>
         </nav>
     </div>
@@ -153,7 +155,6 @@ $categorias = $conexion->query("SELECT * FROM categorias");
 
     <h2 class="titulo-seccion">
         <?php
-        // Mostramos un titulo diferente segun si estamos editando o creando
         if ($id > 0) {
             echo "Editar Producto";
         } else {
@@ -164,7 +165,6 @@ $categorias = $conexion->query("SELECT * FROM categorias");
 
     <div class="form-card">
 
-        <!-- Mostramos el mensaje de error si existe -->
         <?php if ($mensaje != "") { ?>
             <div class="mensaje-error">
                 <?php echo $mensaje; ?>
@@ -187,12 +187,13 @@ $categorias = $conexion->query("SELECT * FROM categorias");
 
             <div class="campo">
                 <label>Precio (€) *</label>
-                <input type="number" name="precio" step="0.01" min="0" placeholder="0.00"
+                <input type="number" name="precio" step="0.01" min="0.01" placeholder="0.00"
                        value="<?php echo isset($producto['precio']) ? $producto['precio'] : ''; ?>" required>
             </div>
 
             <div class="campo">
                 <label>Stock (unidades)</label>
+                <!-- min="0" impide que el navegador permita introducir numeros negativos -->
                 <input type="number" name="stock" min="0" placeholder="0"
                        value="<?php echo isset($producto['stock']) ? $producto['stock'] : '0'; ?>">
             </div>
@@ -202,10 +203,8 @@ $categorias = $conexion->query("SELECT * FROM categorias");
                 <select name="tipo_componente" required>
                     <option value="">-- Selecciona --</option>
                     <?php
-                    // Array con los tipos disponibles para generar las opciones del select
                     $tipos = array('procesador', 'ram', 'gpu', 'almacenamiento', 'placa_base', 'fuente', 'caja');
                     foreach ($tipos as $t) {
-                        // Si el tipo coincide con el del producto actual, lo marcamos como seleccionado
                         $seleccionado = (isset($producto['tipo_componente']) && $producto['tipo_componente'] == $t) ? 'selected' : '';
                         echo "<option value='$t' $seleccionado>" . ucfirst($t) . "</option>";
                     }
@@ -218,7 +217,6 @@ $categorias = $conexion->query("SELECT * FROM categorias");
                 <select name="id_categoria" required>
                     <option value="">-- Selecciona --</option>
                     <?php
-                    // Recorremos las categorias que trajimos de la base de datos
                     while ($cat = $categorias->fetch_assoc()) {
                         $seleccionado = (isset($producto['id_categoria']) && $producto['id_categoria'] == $cat['id_categoria']) ? 'selected' : '';
                         echo "<option value='" . $cat['id_categoria'] . "' $seleccionado>" . $cat['nombre_categoria'] . "</option>";
@@ -234,7 +232,7 @@ $categorias = $conexion->query("SELECT * FROM categorias");
             </div>
 
             <div class="botones">
-                <a href="../index_admin.php" class="btn-cancelar">Cancelar</a>
+                <a href="../index.php" class="btn-cancelar">Cancelar</a>
                 <button type="submit" name="guardar" class="btn btn-principal" style="margin-top:0;">
                     <?php echo ($id > 0) ? 'Guardar cambios' : 'Crear producto'; ?>
                 </button>
