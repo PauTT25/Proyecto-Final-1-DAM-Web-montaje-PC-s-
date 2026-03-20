@@ -1,22 +1,22 @@
 <?php
 include "conexion.php";
 
-// Verificamos que recibimos un ID por la URL
+// Verificamos que nos ha llegado un ID por la URL
 if (isset($_GET['id'])) {
-    $id = $_GET['id'];
 
-    // Usamos una sentencia preparada (más seguro para DAM)
-    $stmt = $conexion->prepare("DELETE FROM noticias WHERE id = ?");
-    $stmt->bind_param("i", $id);
+    $id = intval($_GET['id']);
 
-    if ($stmt->execute()) {
-        // Redirigir al panel con un parámetro de éxito (opcional)
-        header("Location: ../index.php?mensaje=borrado");
+    // Borramos el producto de la tabla productos usando el id_producto
+    if ($conexion->query("DELETE FROM productos WHERE id_producto = $id")) {
+        header("Location: ../index.php?msg=borrado");
     } else {
         echo "Error al eliminar: " . $conexion->error;
     }
-    
-    $stmt->close();
+
+} else {
+    // Si no llega ID redirigimos al panel
+    header("Location: ../index.php");
 }
+
 $conexion->close();
 ?>
