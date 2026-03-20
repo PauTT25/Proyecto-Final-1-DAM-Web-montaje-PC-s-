@@ -24,25 +24,12 @@
         .stat-card h3 { color: #aaa; font-size: 1.2rem; text-transform: uppercase; margin-bottom: 1rem; }
         .stat-card p  { color: #fff; font-size: 2.8rem; font-weight: bold; margin: 0; }
 
-        /* Bloque de cada categoria */
-        .bloque-categoria { margin-bottom: 6rem; }
-
-        .titulo-categoria {
-            font-size: 2rem;
-            font-weight: 700;
-            color: #fff;
-            padding-left: 1.5rem;
-            margin-bottom: 2.5rem;
-        }
-
-        .titulo-categoria.gaming  { border-left: 5px solid #0327f5; }
-        .titulo-categoria.oficina { border-left: 5px solid #ffc107; }
-
         /* Tabla de productos */
         .tabla-productos {
             width: 100%;
             border-collapse: collapse;
             font-size: 1.4rem;
+            margin-bottom: 6rem;
         }
 
         .tabla-productos th {
@@ -62,7 +49,7 @@
 
         .tabla-productos tr:hover td { background: rgba(255,255,255,0.03); }
 
-        /* Botones de accion */
+        /* Botones de accion en la tabla */
         .btn-editar {
             background: transparent;
             color: #0327f5;
@@ -86,8 +73,10 @@
             margin-left: 0.5rem;
         }
 
+        /* Aviso de stock bajo */
         .stock-bajo { color: #ffc107; font-weight: bold; }
 
+        /* Mensajes de feedback */
         .mensaje-ok {
             background: rgba(40,167,69,0.15);
             border-left: 4px solid #28a745;
@@ -105,11 +94,17 @@
             margin-bottom: 3rem;
         }
 
-        .sin-productos {
-            color: #666;
-            font-size: 1.4rem;
-            padding: 2rem 0;
+        /* Titulo de cada categoria */
+        .titulo-categoria {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #fff;
+            padding-left: 1.5rem;
+            margin-bottom: 2rem;
         }
+
+        .titulo-categoria.gaming  { border-left: 5px solid #0327f5; }
+        .titulo-categoria.oficina { border-left: 5px solid #28a745; }
     </style>
 </head>
 <body class="seccion-oscura">
@@ -168,79 +163,115 @@ $stockBajo    = $resStockBajo->fetch_assoc()['total'];
 
     <!-- Cabecera con boton de añadir -->
     <div class="cabecera-seccion">
-        <h3 style="color: #fff; font-size: 2.2rem;">Catálogo de Componentes</h3>
+        <h3 style="color: #fff; font-size: 2.2rem; border-left: 5px solid #0327f5; padding-left: 1.5rem;">
+            Catálogo de Componentes
+        </h3>
         <a href="includes/producto_form.php" class="btn btn-principal">+ Añadir Producto</a>
     </div>
 
-    <?php
-    // Usamos un array para recorrer las dos categorias sin repetir codigo
-    // Cada posicion del array tiene el ID, el nombre y la clase CSS de esa categoria
-    $categorias = array(
-        array('id' => 1, 'nombre' => '🎮 PC Gaming',  'clase' => 'gaming'),
-        array('id' => 2, 'nombre' => '💼 PC Oficina', 'clase' => 'oficina')
-    );
+    <!-- ── TABLA GAMING (id_categoria = 1) ───────────────── -->
+    <h3 class="titulo-categoria gaming">🎮 PC Gaming</h3>
+    <table class="tabla-productos">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Nombre</th>
+                <th>Marca</th>
+                <th>Tipo</th>
+                <th>Precio</th>
+                <th>Stock</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+        <?php
+        $gaming = $conexion->query("SELECT * FROM productos WHERE id_categoria = 1 ORDER BY tipo_componente");
 
-    foreach ($categorias as $cat) {
+        if ($gaming->num_rows == 0) {
+            echo '<tr><td colspan="7" style="color:#666; text-align:center; padding:2rem;">No hay productos en esta categoría.</td></tr>';
+        }
 
-        // Consultamos solo los productos que pertenecen a esta categoria
-        $resultado = $conexion->query("SELECT * FROM productos WHERE id_categoria = " . $cat['id'] . " ORDER BY tipo_componente");
-    ?>
+        // Contador propio para la tabla Gaming, empieza en 1
+        $contador_gaming = 1;
 
-        <div class="bloque-categoria">
+        while ($p = $gaming->fetch_assoc()) {
+            $claseStock = ($p['stock'] < 5) ? 'stock-bajo' : '';
+            echo '
+            <tr>
+                <td style="color:#666;">' . $contador_gaming . '</td>
+                <td><strong>' . $p['nombre'] . '</strong></td>
+                <td style="color:#aaa;">' . $p['marca'] . '</td>
+                <td>' . $p['tipo_componente'] . '</td>
+                <td style="color:#0327f5; font-weight:bold;">' . number_format($p['precio'], 2) . '€</td>
+                <td class="' . $claseStock . '">' . $p['stock'] . ' ud.</td>
+                <td>
+                    <a href="includes/producto_form.php?id=' . $p['id_producto'] . '" class="btn-editar">Editar</a>
+                    <a href="includes/borrar.php?id=' . $p['id_producto'] . '"
+                       class="btn-borrar"
+                       onclick="return confirm(\'¿Seguro que quieres eliminar este producto?\')">
+                       Borrar
+                    </a>
+                </td>
+            </tr>';
 
-            <h3 class="titulo-categoria <?php echo $cat['clase']; ?>">
-                <?php echo $cat['nombre']; ?>
-            </h3>
+            // Sumamos 1 al contador en cada vuelta del bucle
+            $contador_gaming++;
+        }
+        ?>
+        </tbody>
+    </table>
 
-            <?php if ($resultado->num_rows > 0) { ?>
+    <!-- ── TABLA OFICINA (id_categoria = 2) ──────────────── -->
+    <h3 class="titulo-categoria oficina">🖥️ PC Oficina</h3>
+    <table class="tabla-productos">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Nombre</th>
+                <th>Marca</th>
+                <th>Tipo</th>
+                <th>Precio</th>
+                <th>Stock</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+        <?php
+        $oficina = $conexion->query("SELECT * FROM productos WHERE id_categoria = 2 ORDER BY tipo_componente");
 
-                <table class="tabla-productos">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Nombre</th>
-                            <th>Marca</th>
-                            <th>Tipo</th>
-                            <th>Precio</th>
-                            <th>Stock</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    <?php
-                    while ($p = $resultado->fetch_assoc()) {
-                        // Si el stock es menor de 5 aplicamos la clase de aviso
-                        $claseStock = ($p['stock'] < 5) ? 'stock-bajo' : '';
+        if ($oficina->num_rows == 0) {
+            echo '<tr><td colspan="7" style="color:#666; text-align:center; padding:2rem;">No hay productos en esta categoría.</td></tr>';
+        }
 
-                        echo '
-                        <tr>
-                            <td style="color:#666;">' . $p['id_producto'] . '</td>
-                            <td><strong>' . $p['nombre'] . '</strong></td>
-                            <td style="color:#aaa;">' . $p['marca'] . '</td>
-                            <td>' . $p['tipo_componente'] . '</td>
-                            <td style="color:#0327f5; font-weight:bold;">' . number_format($p['precio'], 2) . '€</td>
-                            <td class="' . $claseStock . '">' . $p['stock'] . ' ud.</td>
-                            <td>
-                                <a href="includes/producto_form.php?id=' . $p['id_producto'] . '" class="btn-editar">Editar</a>
-                                <a href="includes/borrar.php?id=' . $p['id_producto'] . '"
-                                   class="btn-borrar"
-                                   onclick="return confirm(\'¿Seguro que quieres eliminar este producto?\')">
-                                   Borrar
-                                </a>
-                            </td>
-                        </tr>';
-                    }
-                    ?>
-                    </tbody>
-                </table>
+        // Contador propio para la tabla Oficina, empieza en 1 independientemente de Gaming
+        $contador_oficina = 1;
 
-            <?php } else { ?>
-                <p class="sin-productos">No hay productos en esta categoría todavía.</p>
-            <?php } ?>
+        while ($p = $oficina->fetch_assoc()) {
+            $claseStock = ($p['stock'] < 5) ? 'stock-bajo' : '';
+            echo '
+            <tr>
+                <td style="color:#666;">' . $contador_oficina . '</td>
+                <td><strong>' . $p['nombre'] . '</strong></td>
+                <td style="color:#aaa;">' . $p['marca'] . '</td>
+                <td>' . $p['tipo_componente'] . '</td>
+                <td style="color:#0327f5; font-weight:bold;">' . number_format($p['precio'], 2) . '€</td>
+                <td class="' . $claseStock . '">' . $p['stock'] . ' ud.</td>
+                <td>
+                    <a href="includes/producto_form.php?id=' . $p['id_producto'] . '" class="btn-editar">Editar</a>
+                    <a href="includes/borrar.php?id=' . $p['id_producto'] . '"
+                       class="btn-borrar"
+                       onclick="return confirm(\'¿Seguro que quieres eliminar este producto?\')">
+                       Borrar
+                    </a>
+                </td>
+            </tr>';
 
-        </div>
-
-    <?php } // fin del foreach ?>
+            // Sumamos 1 al contador en cada vuelta del bucle
+            $contador_oficina++;
+        }
+        ?>
+        </tbody>
+    </table>
 
 </main>
 </body>
