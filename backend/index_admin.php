@@ -170,7 +170,7 @@ $stockBajo    = $resStockBajo->fetch_assoc()['total'];
     </div>
 
     <!-- ── TABLA GAMING (id_categoria = 1) ───────────────── -->
-    <h3 class="titulo-categoria gaming">🎮 PC Gaming</h3>
+    <h3 class="titulo-categoria gaming">🎮 Componentes Gaming</h3>
     <table class="tabla-productos">
         <thead>
             <tr>
@@ -222,7 +222,7 @@ $stockBajo    = $resStockBajo->fetch_assoc()['total'];
     </table>
 
     <!-- ── TABLA OFICINA (id_categoria = 2) ──────────────── -->
-    <h3 class="titulo-categoria oficina">🖥️ PC Oficina</h3>
+    <h3 class="titulo-categoria oficina">🖥️ Componentes Oficina</h3>
     <table class="tabla-productos">
         <thead>
             <tr>
