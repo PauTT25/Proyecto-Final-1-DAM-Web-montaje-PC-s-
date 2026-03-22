@@ -75,3 +75,29 @@ UPDATE productos SET id_categoria = 1 WHERE tipo_componente = 'ram';
 INSERT INTO productos (nombre, marca, precio, imagen_url, stock, id_categoria, tipo_componente) VALUES 
 ('Intel i3-12100', 'Intel', 110.00, 'cpu-i3.jpg', 10, 2, 'procesador'),
 ('Kingston Value 8GB', 'Kingston', 35.00, 'ram-oficina.jpg', 20, 2, 'ram');
+
+
+
+-- TABLA DE USUARIOS Y DATOS DE PRUEBA
+-- Ejecutar con: sudo mysql -u root -p PCBuilder
+
+-- Creamos la tabla de usuarios
+-- El campo rol distingue entre 'admin' y 'cliente'
+CREATE TABLE usuarios (
+    id_usuario   INT AUTO_INCREMENT PRIMARY KEY,
+    nombre       VARCHAR(100) NOT NULL,
+    email        VARCHAR(100) NOT NULL UNIQUE,
+    password     VARCHAR(255) NOT NULL,
+    rol          ENUM('admin', 'cliente') DEFAULT 'cliente'
+);
+
+-- Insertamos un usuario admin y un usuario cliente de prueba
+-- Las contraseñas se guardan cifradas con password_hash() de PHP
+-- La contraseña del admin es: admin123
+-- La contraseña del cliente es: cliente123
+INSERT INTO usuarios (nombre, email, password, rol) VALUES
+('Administrador', 'admin@pcbuilder.es',   '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'admin'),
+('Cliente Demo',  'cliente@pcbuilder.es', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'cliente');
+
+-- ── VERIFICACION ──
+-- SELECT id_usuario, nombre, email, rol FROM usuarios;

@@ -24,7 +24,6 @@
         .stat-card h3 { color: #aaa; font-size: 1.2rem; text-transform: uppercase; margin-bottom: 1rem; }
         .stat-card p  { color: #fff; font-size: 2.8rem; font-weight: bold; margin: 0; }
 
-        /* Tabla de productos */
         .tabla-productos {
             width: 100%;
             border-collapse: collapse;
@@ -49,7 +48,6 @@
 
         .tabla-productos tr:hover td { background: rgba(255,255,255,0.03); }
 
-        /* Botones de accion en la tabla */
         .btn-editar {
             background: transparent;
             color: #0327f5;
@@ -73,10 +71,8 @@
             margin-left: 0.5rem;
         }
 
-        /* Aviso de stock bajo */
         .stock-bajo { color: #ffc107; font-weight: bold; }
 
-        /* Mensajes de feedback */
         .mensaje-ok {
             background: rgba(40,167,69,0.15);
             border-left: 4px solid #28a745;
@@ -94,17 +90,19 @@
             margin-bottom: 3rem;
         }
 
-        /* Titulo de cada categoria */
         .titulo-categoria {
             font-size: 2rem;
             font-weight: 700;
             color: #fff;
             padding-left: 1.5rem;
             margin-bottom: 2rem;
+            width: 100%;
+            display: block;
         }
 
         .titulo-categoria.gaming  { border-left: 5px solid #0327f5; }
         .titulo-categoria.oficina { border-left: 5px solid #28a745; }
+        .titulo-categoria.usuarios { border-left: 5px solid #6f42c1; }
     </style>
 </head>
 <body class="seccion-oscura">
@@ -112,11 +110,9 @@
 <?php
 include "includes/conexion.php";
 
-// Contamos el total de productos
 $resProductos   = $conexion->query("SELECT COUNT(*) as total FROM productos");
 $totalProductos = $resProductos->fetch_assoc()['total'];
 
-// Contamos los productos con stock bajo (menos de 5 unidades)
 $resStockBajo = $conexion->query("SELECT COUNT(*) as total FROM productos WHERE stock < 5");
 $stockBajo    = $resStockBajo->fetch_assoc()['total'];
 ?>
@@ -140,7 +136,7 @@ $stockBajo    = $resStockBajo->fetch_assoc()['total'];
 
     <h2 class="titulo-seccion" style="font-size: 4rem;">Gestión de Inventario</h2>
 
-    <!-- Mensaje de confirmacion tras crear, editar o borrar un producto -->
+    <!-- Mensajes de feedback -->
     <?php
     if (isset($_GET['msg'])) {
         if ($_GET['msg'] == 'creado')      echo '<div class="mensaje-ok">✔ Producto creado correctamente.</div>';
@@ -159,6 +155,40 @@ $stockBajo    = $resStockBajo->fetch_assoc()['total'];
             <h3>Stock Bajo (&lt;5)</h3>
             <p><?php echo $stockBajo; ?></p>
         </div>
+    </div>
+
+<!-- ── TABLA USUARIOS ────────────────────────────────── -->
+    <div style="max-width: 1000px; margin: 0 auto;">
+        <h3 class="titulo-categoria usuarios">👤 Usuarios Registrados</h3>
+        <table class="tabla-productos">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Nombre</th>
+                    <th>Email</th>
+                    <th>Rol</th>
+                </tr>
+            </thead>
+            <tbody>
+            <?php
+            $usuarios = $conexion->query("SELECT * FROM usuarios ORDER BY rol, nombre");
+
+            $contador_usuarios = 1;
+
+            while ($u = $usuarios->fetch_assoc()) {
+                $color_rol = ($u['rol'] == 'admin') ? '#0327f5' : '#28a745';
+                echo '
+                <tr>
+                    <td style="color:#666;">' . $contador_usuarios . '</td>
+                    <td><strong>' . $u['nombre'] . '</strong></td>
+                    <td style="color:#aaa;">' . $u['email'] . '</td>
+                    <td style="color:' . $color_rol . '; font-weight:bold;">' . ucfirst($u['rol']) . '</td>
+                </tr>';
+                $contador_usuarios++;
+            }
+            ?>
+            </tbody>
+        </table>
     </div>
 
     <!-- Cabecera con boton de añadir -->
@@ -191,7 +221,6 @@ $stockBajo    = $resStockBajo->fetch_assoc()['total'];
             echo '<tr><td colspan="7" style="color:#666; text-align:center; padding:2rem;">No hay productos en esta categoría.</td></tr>';
         }
 
-        // Contador propio para la tabla Gaming, empieza en 1
         $contador_gaming = 1;
 
         while ($p = $gaming->fetch_assoc()) {
@@ -213,8 +242,6 @@ $stockBajo    = $resStockBajo->fetch_assoc()['total'];
                     </a>
                 </td>
             </tr>';
-
-            // Sumamos 1 al contador en cada vuelta del bucle
             $contador_gaming++;
         }
         ?>
@@ -243,7 +270,6 @@ $stockBajo    = $resStockBajo->fetch_assoc()['total'];
             echo '<tr><td colspan="7" style="color:#666; text-align:center; padding:2rem;">No hay productos en esta categoría.</td></tr>';
         }
 
-        // Contador propio para la tabla Oficina, empieza en 1 independientemente de Gaming
         $contador_oficina = 1;
 
         while ($p = $oficina->fetch_assoc()) {
@@ -265,8 +291,6 @@ $stockBajo    = $resStockBajo->fetch_assoc()['total'];
                     </a>
                 </td>
             </tr>';
-
-            // Sumamos 1 al contador en cada vuelta del bucle
             $contador_oficina++;
         }
         ?>

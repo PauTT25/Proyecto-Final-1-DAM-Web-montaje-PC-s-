@@ -1,5 +1,6 @@
 <?php 
     // Hago la conexion a la base de datos u utilizando __DIR__ me aseguro de tener la variable $conexion en todas las paginas que utilize el header.
+    session_start(); // Esto nos permite estar logeados en todas las paginas y poder acceder correctamente a las diferentes vistas depende del rol con el que iniciemos.
     include __DIR__ . '/../../backend/includes/conexion.php';
 ?>
 
