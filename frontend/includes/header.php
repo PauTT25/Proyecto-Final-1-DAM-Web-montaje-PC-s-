@@ -40,7 +40,14 @@
             // Cuando no estemos en el index, en el header solo se mantendra el enlace que hemos hecho con el logo y la tarjeta de mi cuenta.
         ?>
         
-        <li><a href="login.php" class="btn btn-login">Mi Cuenta</a></li>
+        <?php if (isset($_SESSION['usuario'])): ?>
+            <!-- Si hay sesion iniciada mostramos el nombre y el boton de cerrar sesion -->
+            <li style="color: #aaa; font-size: 1.3rem;">Hola, <?php echo $_SESSION['usuario']; ?></li>
+            <li><a href="logout.php" style="color: #d9534f;">Cerrar sesión</a></li>
+        <?php else: ?>
+            <!-- Si no hay sesion mostramos el boton de login -->
+            <li><a href="login.php" class="btn btn-login">Mi Cuenta</a></li>
+        <?php endif; ?>
     </ul>
 </nav>
         </div>
