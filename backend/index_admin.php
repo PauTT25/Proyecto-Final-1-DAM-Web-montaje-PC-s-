@@ -1,3 +1,13 @@
+<?php
+session_start();
+include "includes/conexion.php";
+
+if (!isset($_SESSION['usuario']) || $_SESSION['rol'] != 'admin') {
+    header("Location: /a/Proyecto-Final-1-DAM-Web-montaje-PC-s-/frontend/login.php");
+    exit;
+}
+?>
+
 <!doctype html>
 <html lang="es">
 <head>
@@ -108,7 +118,6 @@
 <body class="seccion-oscura">
 
 <?php
-include "includes/conexion.php";
 
 $resProductos   = $conexion->query("SELECT COUNT(*) as total FROM productos");
 $totalProductos = $resProductos->fetch_assoc()['total'];

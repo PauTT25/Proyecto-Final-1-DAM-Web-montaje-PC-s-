@@ -1,3 +1,13 @@
+<?php
+session_start();
+include "conexion.php";
+
+if (!isset($_SESSION['usuario']) || $_SESSION['rol'] != 'admin') {
+    header("Location: /a/Proyecto-Final-1-DAM-Web-montaje-PC-s-/frontend/login.php");
+    exit;
+}
+?>
+
 <!doctype html>
 <html lang="es">
 <head>
@@ -65,7 +75,6 @@
 <body>
 
 <?php
-include "conexion.php";
 
 // Comprobamos si nos llega un ID por la URL para saber si estamos editando o creando
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
@@ -113,7 +122,7 @@ if (isset($_POST['guardar'])) {
                     VALUES ('$nombre', '$marca', '$precio', '$stock', '$tipo_componente', '$id_categoria', '$imagen_url')";
 
             if ($conexion->query($sql)) {
-                header("Location: ../index.php?msg=creado");
+                header("Location: ../index_admin.php?msg=creado");
                 exit;
             } else {
                 $mensaje = "Error al guardar: " . $conexion->error;
@@ -126,7 +135,7 @@ if (isset($_POST['guardar'])) {
                     WHERE id_producto = $id";
 
             if ($conexion->query($sql)) {
-                header("Location: ../index.php?msg=actualizado");
+                header("Location: ../index_admin.php?msg=actualizado");
                 exit;
             } else {
                 $mensaje = "Error al actualizar: " . $conexion->error;
@@ -232,7 +241,7 @@ $categorias = $conexion->query("SELECT * FROM categorias");
             </div>
 
             <div class="botones">
-                <a href="../index.php" class="btn-cancelar">Cancelar</a>
+                <a href="../index_admin.php" class="btn-cancelar">Cancelar</a>
                 <button type="submit" name="guardar" class="btn btn-principal" style="margin-top:0;">
                     <?php echo ($id > 0) ? 'Guardar cambios' : 'Crear producto'; ?>
                 </button>
