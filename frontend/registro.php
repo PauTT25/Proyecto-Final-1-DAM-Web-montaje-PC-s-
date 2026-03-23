@@ -34,6 +34,11 @@ if (isset($_POST['registrar'])) {
         $mensaje = "La contraseña debe tener al menos 6 caracteres.";
         $tipo_mensaje = "error";
 
+        // Validacion de la checkbox de terminos y servicios
+    } elseif (!isset($_POST['acepta_terminos'])) {
+        $mensaje = "Debes aceptar la política de privacidad para registrarte.";
+        $tipo_mensaje = "error";
+
     } else {
         // Comprobamos si el email ya esta registrado
         $check = $conexion->query("SELECT id_usuario FROM usuarios WHERE email = '$email'");
@@ -115,6 +120,13 @@ if (isset($_POST['registrar'])) {
                     <input type="password" name="repetir_password" placeholder="Repite la contraseña"
                            style="width: 100%; padding: 1rem 1.4rem; font-size: 1.4rem; border: 1px solid #ddd; border-radius: 0.6rem;"
                            required>
+                </div>
+
+                <div style="margin-bottom: 2rem;">
+                    <label style="display: flex; align-items: flex-start; gap: 1rem; font-size: 1.4rem; color: #666; cursor: pointer;">
+                        <input type="checkbox" name="acepta_terminos" style="width: auto; margin-top: 0.3rem;" required>
+                        <span>He leído y acepto la <a href="privacidad.php" target="_blank" style="color: #0327f5;">Política de Privacidad</a> y los <a href="privacidad.php" target="_blank" style="color: #0327f5;">Términos y Condiciones</a></span>
+                    </label>
                 </div>
 
                 <button type="submit" name="registrar" class="btn btn-principal"
