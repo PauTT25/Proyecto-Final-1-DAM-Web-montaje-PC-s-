@@ -1,6 +1,7 @@
 <?php
 session_start();
 include "includes/conexion.php";
+include __DIR__ . '/includes/traducciones.php';
 
 if (!isset($_SESSION['usuario']) || $_SESSION['rol'] != 'admin') {
     header("Location: /a/Proyecto-Final-1-DAM-Web-montaje-PC-s-/frontend/login.php");

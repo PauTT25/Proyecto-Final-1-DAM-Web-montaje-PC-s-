@@ -1,54 +1,47 @@
 <?php 
-    // Hago la conexion a la base de datos u utilizando __DIR__ me aseguro de tener la variable $conexion en todas las paginas que utilize el header.
-    session_start(); // Esto nos permite estar logeados en todas las paginas y poder acceder correctamente a las diferentes vistas depende del rol con el que iniciemos.
-    include __DIR__ . '/../../backend/includes/conexion.php';
+session_start();
+include __DIR__ . '/traducciones.php';
+include __DIR__ . '/../../backend/includes/conexion.php';
 ?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PCBuilder | PCs a medida</title>
-    <link rel="stylesheet" href="assets/CSS/estilos.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PCBuilder | PCs a medida</title>
+<link rel="stylesheet" href="assets/CSS/estilos.css">
 </head>
 <body>
-
-    <header>
-        <div class="container header-flex">
-            <div class="logo-container">
-                <a href="index.php" style="text-decoration: none; color: inherit; display: flex; align-items: center;">
-                <img src="assets/images/Logo-web.png" alt="Logo PCBuilder" class="logo-img">
-                <h1 class="logo-texto">PC<span>Builder</span></h1>
-                </a>
-            </div>
-            
+<header>
+<div class="container header-flex">
+<div class="logo-container">
+<a href="index.php" style="text-decoration: none; color: inherit; display: flex; align-items: center;">
+<img src="assets/images/Logo-web.png" alt="Logo PCBuilder" class="logo-img">
+<h1 class="logo-texto">PC<span>Builder</span></h1>
+</a>
+</div>
 <nav>
-    <ul class="nav-list">
-        <?php 
-            // Segun en que pagina estemos, el header se comportara difernte mostrandono los enlaces de navegacion o no gracias a la variable $pagina_actual y con la ayuda de basename($_SERVER['PHP_SELF']) nos da el nombre del archvio actual.
-            $pagina_actual = basename($_SERVER['PHP_SELF']); 
+<ul class="nav-list">
+<?php 
+$pagina_actual = basename($_SERVER['PHP_SELF']); 
+if ($pagina_actual == 'index.php') { 
+?>
+<li><a href="#servicios"><?php echo $t['nav_servicios']; ?></a></li>
+<li><a href="#diferencial"><?php echo $t['nav_ventajas']; ?></a></li>
+<li><a href="#contacto"><?php echo $t['nav_contacto']; ?></a></li>
+<?php } ?>
 
-            if ($pagina_actual == 'index.php') { 
-                // En el index se mantienen las tarjetas para poder moverse por la misma pagina.
-                ?>
-                <li><a href="#servicios">Servicios</a></li>
-                <li><a href="#diferencial">Ventajas</a></li>
-                <li><a href="#contacto">Contacto</a></li>
-                <?php 
-            } 
-            // Cuando no estemos en el index, en el header solo se mantendra el enlace que hemos hecho con el logo y la tarjeta de mi cuenta.
-        ?>
-        
-        <?php if (isset($_SESSION['usuario'])): ?>
-            <!-- Si hay sesion iniciada mostramos el nombre y el boton de cerrar sesion -->
-            <li style="color: #aaa; font-size: 1.3rem;">Hola, <?php echo $_SESSION['usuario']; ?></li>
-            <li><a href="logout.php" style="color: #d9534f;">Cerrar sesión</a></li>
-        <?php else: ?>
-            <!-- Si no hay sesion mostramos el boton de login -->
-            <li><a href="login.php" class="btn btn-login">Mi Cuenta</a></li>
-        <?php endif; ?>
-    </ul>
+<!-- Botones de idioma visibles en todas las paginas -->
+<li><a href="cambiar_idioma.php?idioma=es" style="padding: 0.5rem 1rem;">🇪🇸 ES</a></li>
+<li><a href="cambiar_idioma.php?idioma=en" style="padding: 0.5rem 1rem;">🇬🇧 EN</a></li>
+
+<?php if (isset($_SESSION['usuario'])): ?>
+<li style="color: #aaa; font-size: 1.3rem;"><?php echo $t['nav_hola']; ?>, <?php echo $_SESSION['usuario']; ?></li>
+<li><a href="logout.php" style="color: #d9534f;"><?php echo $t['nav_cerrar_sesion']; ?></a></li>
+<?php else: ?>
+<li><a href="login.php" class="btn btn-login"><?php echo $t['nav_mi_cuenta']; ?></a></li>
+<?php endif; ?>
+</ul>
 </nav>
-        </div>
-    </header>
+</div>
+</header>
