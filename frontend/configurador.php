@@ -46,6 +46,7 @@ $pasos = $t['conf_pasos'];
                         }
                         ?>
                         <input type="radio" name="id_<?php echo $paso['tipo']; ?>" value="<?php echo $fila['id_producto']; ?>" required
+                                data-precio="<?php echo $fila['precio']; ?>"
                                <?php echo ($fila['stock'] <= 0) ? 'disabled' : ''; ?>>
                         <span><?php echo $t['conf_seleccionar']; ?></span>
                     </label>
@@ -57,9 +58,43 @@ $pasos = $t['conf_pasos'];
         <?php
         }
         ?>
-        <div style="text-align:center; margin: 40px 0;">
-            <button type="submit" class="btn btn-principal"><?php echo $t['conf_boton']; ?></button>
-        </div>
+        <!-- Contador de precio acumulado -->
+<div style="text-align:center; margin: 40px 0;">
+    <div style="background: white; display: inline-block; padding: 2rem 4rem; border-radius: 1.2rem;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin-bottom: 2rem; border-left: 5px solid #0327f5;">
+        <p style="font-size: 1.4rem; color: #666; margin-bottom: 0.5rem;">Precio estimado de tu configuración</p>
+        <p style="font-size: 3rem; font-weight: 800; color: #0327f5;">
+            Total: <span id="precio-total">0.00</span>€
+        </p>
+    </div>
+    <br>
+    <button type="submit" class="btn btn-principal"><?php echo $t['conf_boton']; ?></button>
+</div>
+
+<!-- Script que suma los precios en tiempo real -->
+<script>
+    // Seleccionamos todos los radio buttons que tienen un precio
+    var radios = document.querySelectorAll('input[type="radio"][data-precio]');
+
+    // Funcion que recorre todos los radios seleccionados y suma sus precios
+    function actualizarTotal() {
+        var total = 0;
+
+        radios.forEach(function(radio) {
+            if (radio.checked) {
+                total += parseFloat(radio.dataset.precio);
+            }
+        });
+
+        // Mostramos el total con dos decimales en el span
+        document.getElementById('precio-total').textContent = total.toFixed(2);
+    }
+
+    // Añadimos el evento a cada radio para que se ejecute al seleccionar
+    radios.forEach(function(radio) {
+        radio.addEventListener('change', actualizarTotal);
+    });
+</script>
     </form>
 </main>
 
