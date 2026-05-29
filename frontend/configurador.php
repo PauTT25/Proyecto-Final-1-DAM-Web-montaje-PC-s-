@@ -9,6 +9,9 @@ $pasos = $t['conf_pasos'];
 ?>
 
 <main class="container" style="margin-top: 100px;">
+    <button onclick="history.back()" class="btn" style="background: #666; color: white; padding: 1rem 2rem; margin-bottom: 2rem;">
+    ← Volver
+    </button>
 
     <h2 style="text-align:center; font-size: 3rem; margin-bottom: 1rem;"><?php echo $t['conf_titulo']; ?></h2>
     <p style="text-align:center; color: #666; margin-bottom: 4rem;"><?php echo $t['conf_subtitulo']; ?></p>

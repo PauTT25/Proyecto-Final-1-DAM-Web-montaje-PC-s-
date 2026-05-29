@@ -58,6 +58,10 @@ while ($item = $resultado->fetch_assoc()) {
 
 <main class="container seccion-padding" style="margin-top: 100px;">
 
+    <button onclick="history.back()" class="btn" style="background: #666; color: white; padding: 1rem 2rem; margin-bottom: 2rem;">
+    ← Volver
+    </button>
+
     <h2 class="titulo-seccion"><?php echo $t['carrito_titulo']; ?></h2>
 
     <?php if ($compra_confirmada): ?>
